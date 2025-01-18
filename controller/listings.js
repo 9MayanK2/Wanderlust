@@ -27,7 +27,7 @@ module.exports.showListingCategory = async (req, res) => {
 
     // Check if the category is provided
     if (search) {
-        const allListing = await Listing.find({ category:search });
+        const allListing = await Listing.find({ category: search });
         res.render("listings/index.ejs", { allListing });
     } else {
         res.status(400).send('Category parameter is required');
@@ -90,4 +90,24 @@ module.exports.destroyListing = async (req, res) => {
     console.log(listing);
     req.flash("success", "Listing deleted successfuly!");
     res.redirect("/listings");
+};
+
+
+// For Search Button
+module.exports.showListingLocation = async (req, res) => {
+    const destination = req.query.destination; // Get the 'destination' parameter from the URL
+    console.log(destination);
+    // Check if the category is provided
+    if (destination) {
+        const allListing = await Listing.find({
+            $or: [
+                { location: { $regex: destination, $options: 'i' } }, // Case-insensitive partial match
+                { country: { $regex: destination, $options: 'i' } }  // Case-insensitive partial match
+            ]
+        });
+        console.log(allListing);
+        res.render("listings/index.ejs", { allListing });
+    } else {
+        res.status(400).send('Destination parameter is required');
+    }
 };

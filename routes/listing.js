@@ -13,6 +13,9 @@ router
     .get(WrapAsync(listingController.index))  //Index Route
     .post(isLoggedIn, upload.single('listing[image]'), isValidateListing, WrapAsync(listingController.createListing));  //Create Route
 
+router
+    .route("/location")
+    .get(WrapAsync(listingController.showListingLocation));
 
 // Add New Route
 router.get("/new", isLoggedIn, listingController.newListingRender);
