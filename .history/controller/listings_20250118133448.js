@@ -108,7 +108,6 @@ module.exports.showListingLocation = async (req, res) => {
         console.log(allListing);
         res.render("listings/index.ejs", { allListing });
     } else {
-        req.flash("success", "Please enter valid destination");
-        res.redirect("/listings");
+        res.status(400).send('Destination parameter is required');
     }
 };

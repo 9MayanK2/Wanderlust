@@ -108,7 +108,7 @@ module.exports.showListingLocation = async (req, res) => {
         console.log(allListing);
         res.render("listings/index.ejs", { allListing });
     } else {
-        req.flash("success", "Please enter valid destination");
-        res.redirect("/listings");
+        req.flash("success", "Listing deleted successfuly!");
+    res.redirect("/listings");
     }
 };
