@@ -36,8 +36,15 @@ module.exports.showListingCategory = async (req, res) => {
 
 
 module.exports.createListing = async (req, res,next) => {
-    let url = req.file.path;
-    let filename = req.file.filename;
+    let url, filename;
+
+    if (req.file) {
+        url = req.file.path;
+        filename = req.file.filename;
+    } else {
+        req.flash("error", "Image upload failed or missing.");
+        return res.redirect("/listings/new");
+    }
     let coordinates;
     try {
         coordinates = await getCoordsForAddress(req.body.listing.location);
