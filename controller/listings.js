@@ -35,7 +35,7 @@ module.exports.showListingCategory = async (req, res) => {
 };
 
 
-module.exports.createListing = async (req, res) => {
+module.exports.createListing = async (req, res,next) => {
     let url = req.file.path;
     let filename = req.file.filename;
     let coordinates;
